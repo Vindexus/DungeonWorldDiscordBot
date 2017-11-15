@@ -14,7 +14,7 @@ function sendBasicReply (message, obj) {
 }
 
 function paramToKey (param) {
-  return param.trim().toLowerCase().split('&').join('and').split(' ').join('_');
+  return param.trim().toLowerCase().split('&').join('and').split(' ').join('_').split("'").join('');
 }
 
 function listToNames (list) {
@@ -78,7 +78,7 @@ const commands = {
       reply.push(move.description);
       return message.channel.send(reply.join("\n"));
     },
-    help: "!move {movename}"
+    help: "Returns info on a move. Example: `!move Duelist's Parry`"
   },
   item: {
     fn: function (message, params) {
@@ -90,7 +90,7 @@ const commands = {
       }
       return sendBasicReply(message, move);
     },
-    help: "!item {item name}"
+    help: "Returns info on an item. Example: !item short sword"
   },
   tag: {
     fn: function (message, params) {
@@ -100,7 +100,8 @@ const commands = {
         return sendNotFound(message, params);
       }
       return sendBasicReply(message, tag);
-    }
+    },
+    help: 'Returns info on a tag. Example: `!tag near`'
   },
   'class': {
     fn: function (message, params) {
@@ -118,7 +119,8 @@ const commands = {
       reply.push('Races: ' + listToNames(cls.race_moves));
       reply.push('Starting Moves: ' + listToNames(cls.starting_moves));
       return message.channel.send(reply.join("\n"));
-    }
+    },
+    help: 'Returns some basic info about a class. Example: `!class fighter`'
   },
   looks: {
     fn: function (message, params) {
@@ -133,15 +135,21 @@ const commands = {
         return list.join(', ');
       });
       message.channel.send('**' + cls.name + '** looks *(choose one from each)*:\n' + reply.join('\n'));
-    }
+    },
+    help: 'Shows all the look options for a class.\nExample: `!looks fighter`'
   },
   help: {
     fn: function (message, params) {
       if(params) {
-
+        params = paramToKey(params);
+        if(commands[params]) {
+          return message.channel.send(commands[params].help);
+        }
       }
       else {
-        return message.channel.send('**Usage:** `!help ' + Object.keys(commands).join('|') + '`')
+        return message.channel.send('**Usage:** `!help ' + Object.keys(commands).filter((cmd) => {
+          return commands[cmd].help
+        }).join('|') + '`')
       }
     }
   }
