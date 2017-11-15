@@ -9,7 +9,8 @@ Responds to `![command] [parameter]` commands with information from the [dungeon
 ```!move volley
 !looks fighter
 !class bard
-!item short sword```
+!item short sword
+```
 
 ## Installation
 
