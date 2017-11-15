@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.2.1",
-    "dungeonworld-data": "git@github.com:Vindexus/DungeonWorldData.git"
+    "dungeonworld-data": "Vindexus/DungeonWorldData"
   },
   "engines": {
     "node" : "6.3.1"
