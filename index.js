@@ -114,7 +114,8 @@ const commands = {
       }
 
       return sendNotFound(message, params);
-    }
+    },
+    help: 'Returns info on Wizard or Cleric spells. Example: `!spell fireball`'
   },
   item: {
     fn: function (message, params) {
@@ -126,7 +127,7 @@ const commands = {
       }
       return sendBasicReply(message, move);
     },
-    help: "Returns info on an item. Example: !item short sword"
+    help: "Returns info on an item. Example: `!item short sword`"
   },
   tag: {
     fn: function (message, params) {
