@@ -9,6 +9,10 @@ function sendNotFound (message, params) {
   return message.channel.send('Could not find: `' + params + '`');
 }
 
+function sendReply (message, reply) {
+  return message.channel.send(reply.join('\n'));
+}
+
 function sendBasicReply (message, obj) {
   return message.channel.send(getBasicReply(obj));
 }
@@ -80,6 +84,38 @@ const commands = {
     },
     help: "Returns info on a move. Example: `!move Duelist's Parry`"
   },
+  spell: {
+    fn: function (message, params) {
+      params = paramToKey(params);
+      const classes = ['wizard', 'cleric'];
+      for(var i = 0; i < classes.length; i++) {
+        const cls = classes[i];
+        if(!data.classes[cls].spells) {
+          continue;
+        }
+        const key = findClosestKey(data.classes[cls].spells, params);
+        const spell = data.classes[cls].spells[key];
+        if(spell) {
+          let reply = ['**' + spell.name + '**'];
+          let meta = data.classes[cls].name + ' ';
+          if(typeof(spell.level) == 'string') {
+            meta += spell.level
+          }
+          else {
+            meta += 'Level ' + spell.level
+          }
+          if(spell.tags) {
+            meta += ' - ' + spell.tags.join(', ');
+          }
+          reply.push('*' + meta + '*');
+          reply.push(spell.description);
+          return sendReply(message, reply);
+        }
+      }
+
+      return sendNotFound(message, params);
+    }
+  },
   item: {
     fn: function (message, params) {
       params = paramToKey(params);
@@ -118,7 +154,7 @@ const commands = {
       reply.push('Alignments: ' + listToNames(cls.alignments_list));
       reply.push('Races: ' + listToNames(cls.race_moves));
       reply.push('Starting Moves: ' + listToNames(cls.starting_moves));
-      return message.channel.send(reply.join("\n"));
+      return sendReply(message, reply);
     },
     help: 'Returns some basic info about a class. Example: `!class fighter`'
   },
