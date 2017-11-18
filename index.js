@@ -10,7 +10,11 @@ function sendNotFound (message, params) {
 }
 
 function sendReply (message, reply) {
-  return message.channel.send(reply.join('\n'));
+  return message.channel.send(reply.join('\n')).catch(function (err) {
+    console.log('err',err);
+  }).then(function (resp) {
+    console.log('resp',resp);
+  });
 }
 
 function sendBasicReply (message, obj) {
