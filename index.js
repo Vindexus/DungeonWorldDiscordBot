@@ -197,7 +197,7 @@ const commands = {
 }
 
 client.on('ready', () => {
-  console.log('Bot is ready.');
+  console.log('Bot is ready at ' + new Date().toISOString());
 });
 
 client.on('message', message => {
