@@ -91,14 +91,18 @@ const commands = {
   spell: {
     fn: function (message, params) {
       params = paramToKey(params);
+      console.log('params',params);
       const classes = ['wizard', 'cleric'];
       for(var i = 0; i < classes.length; i++) {
         const cls = classes[i];
+        console.log('cls', cls);
         if(!data.classes[cls].spells) {
+          console.log('continue');
           continue;
         }
         const key = findClosestKey(data.classes[cls].spells, params);
         const spell = data.classes[cls].spells[key];
+        console.log('key',key);
         if(spell) {
           let reply = ['**' + spell.name + '**'];
           let meta = data.classes[cls].name + ' ';
@@ -202,6 +206,9 @@ client.on('ready', () => {
 
 client.on('message', message => {
   const content = message.content;
+
+  console.log(content);
+
   //All commands are prefaced by a !
   if (content.substr(0, 1) == '!') {
     const until = content.indexOf(' ') == -1 ? content.length : content.indexOf(' ');
