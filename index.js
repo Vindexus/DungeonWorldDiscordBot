@@ -10,11 +10,7 @@ function sendNotFound (message, params) {
 }
 
 function sendReply (message, reply) {
-  return message.channel.send(reply.join('\n')).catch(function (err) {
-    console.log('err',err);
-  }).then(function (resp) {
-    console.log('resp',resp);
-  });
+  return message.channel.send(reply.join('\n'));
 }
 
 function sendBasicReply (message, obj) {
@@ -34,7 +30,7 @@ function listToNames (list) {
 function findClosestKey (map, givenKey) {
   let closest = false;
   let keys = Object.keys(map);
-  for(var i = 1; i <= givenKey.length; i++) {
+  for(var i = 4; i <= givenKey.length; i++) {
     let piece = givenKey.substr(0, i);
     console.log('Searching for: ' + piece);
     for(var k = 0; k < keys.length; k++) {
