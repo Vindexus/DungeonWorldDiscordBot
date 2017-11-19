@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.2.1",
-    "dungeonworld-data": "0.0.6"
+    "dungeonworld-data": "^0.0.7"
   },
   "engines": {
     "node": "6.3.1"
