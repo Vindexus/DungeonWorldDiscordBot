@@ -208,7 +208,7 @@ client.on('message', message => {
   //All commands are prefaced by a !
   if (content.substr(0, 1) == '!') {
     const until = content.indexOf(' ') == -1 ? content.length : content.indexOf(' ');
-    const command = content.substr(1, until).trim();
+    const command = content.substr(1, until).trim().toLowerCase();
 
     if(commands.hasOwnProperty(command)) {
       const params = content.substr(command.length+1).trim();
@@ -223,3 +223,5 @@ client.on('message', message => {
 
 //Log the bot in
 client.login(token);
+
+console.log('token',token);
